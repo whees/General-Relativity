@@ -1,2 +1,6 @@
-﻿  main.cpp
+﻿  Metric.cpp
+C:\Users\lcuev\Documents\Art\General_Relativity\General_Relativity\Metric.cpp(104,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Simulation.cpp
+  main.cpp
+  Generating Code...
   General_Relativity.vcxproj -> C:\Users\lcuev\Documents\Art\General_Relativity\x64\Debug\General_Relativity.exe

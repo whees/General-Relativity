@@ -15,45 +15,45 @@ float null(float* abcd)
 
 Metric::Metric(fourParamFunc** inits)
 {
-	uvs = new fourParamFunc*[4];
+	covar = new fourParamFunc*[4];
 	for (int i = 0; i < 4; i++)
 	{
-		uvs[i] = new fourParamFunc[4];
+		covar[i] = new fourParamFunc[4];
 	}
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			uvs[i][j] = inits[i][j];
+			covar[i][j] = inits[i][j];
 		}
 	}
 }
 
 Metric::Metric()
 {
-	uvs = new fourParamFunc * [4];
+	covar = new fourParamFunc * [4];
 	for (int i = 0; i < 4; i++)
 	{
-		uvs[i] = new fourParamFunc[4];
+		covar[i] = new fourParamFunc[4];
 	}
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
 			if (i != j)
-				uvs[i][j] = &null;
+				covar[i][j] = &null;
 			else if (i == 3)
-				uvs[i][j] = &mink_time;
+				covar[i][j] = &mink_time;
 			else
-				uvs[i][j] = &mink_space;
+				covar[i][j] = &mink_space;
 		}
 	}
 }
 
 
-float Metric::contra_uvs(int u, int v, float* abcd)
+float Metric::contra(int u, int v, float* abcd)
 {
-	float det = det4(uvs, abcd);
+	float det = det4(covar, abcd);
 
 	fourParamFunc** mids;
 	mids = new fourParamFunc * [3];
@@ -66,7 +66,7 @@ float Metric::contra_uvs(int u, int v, float* abcd)
 		for (int k = 0; k < 3; k++)
 		{
 
-			mids[j][k] = uvs[(v + j + 1) % 4][(u + k + 1) % 4];
+			mids[j][k] = covar[(v + j + 1) % 4][(u + k + 1) % 4];
 		}
 	}
 
@@ -76,13 +76,47 @@ float Metric::contra_uvs(int u, int v, float* abcd)
 	return cov / det;
 }
 
-float Metric::christoff(int u, int v, int a, float* abcd)
+
+float Metric::christoff_tensor(int e, int u, int v, int s, float* abcd)
+{
+	float ret = 0;
+	
+
+	for (int a = 0; a < 4; a++)
+	{
+
+		ret += christoff_3index(this,u, s, a, abcd) * christoff_3index(this,a, v, e, abcd);
+	}
+
+	for (int a = 0; a < 4; a++)
+	{
+		ret -= christoff_3index(this,u, v, a, abcd) * christoff_3index(this,a, s, e, abcd);
+	}
+
+	ret -= christoff_derivitive(&christoff_3index, v, u, s, e, abcd);
+	ret -= christoff_derivitive(&christoff_3index, s, u, v, e, abcd);
+
+	return ret;
+}
+
+float Metric::christoff_derivitive(threeIndexFourParamFunc func, int index, int u, int v, int s, float* abcd)
+{
+	float dparam = 0.001;
+	float new_abcd[4] = { abcd[0], abcd[1], abcd[2], abcd[3] };
+	new_abcd[index] += dparam;
+	float dfunc = func(this,u, v, s, new_abcd) - func(this,u, v, s, abcd);
+
+	return dfunc / dparam;
+}
+
+
+float christoff_3index(Metric* g, int u, int v, int s, float* abcd)
 {
 	float ret = 0;
 
 	for (int l = 0; l < 4; l++)
 	{
-		ret += contra_uvs(a,l,abcd) * (derivitive(uvs[u][l], v, abcd) + derivitive(uvs[v][l], u, abcd) - derivitive(uvs[u][v], l, abcd));
+		ret += g->contra(s, l, abcd) * (derivitive(g->covar[u][l], v, abcd) + derivitive(g->covar[v][l], u, abcd) - derivitive(g->covar[u][v], l, abcd));
 	}
 
 	ret *= 0.5;

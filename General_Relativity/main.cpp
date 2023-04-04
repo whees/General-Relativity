@@ -2,8 +2,8 @@
 //
 #include <iostream>
 #include <cmath>
-#include "dictionary.h"
 #include "Metric.h"
+#include "functions.h"
 using namespace std;
 
 float M = 1;
@@ -84,11 +84,10 @@ int main()
 		}
 	}
 
-	Metric g = Metric(uvs);
+	Metric* g = new Metric(uvs);
 	float abcd[4] = { 2,1,0,0 };
 
-	cout << g.christoff(0,0,0,abcd);
-
+	cout << christoff_3index(g, 0, 1, 1, abcd);
 
 }
 

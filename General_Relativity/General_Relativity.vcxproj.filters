@@ -21,10 +21,10 @@
     <ClCompile Include="Metric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dictionary.cpp">
+    <ClCompile Include="Simulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Simulation.cpp">
+    <ClCompile Include="functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="Metric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dictionary.h">
+    <ClInclude Include="Simulation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Simulation.h">
+    <ClInclude Include="functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

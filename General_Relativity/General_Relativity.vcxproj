@@ -139,13 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dictionary.cpp" />
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="Metric.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simulation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dictionary.h" />
+    <ClInclude Include="functions.h" />
     <ClInclude Include="Metric.h" />
     <ClInclude Include="Simulation.h" />
   </ItemGroup>

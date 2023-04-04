@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9ee78dec-9cf5-47a6-b594-359e1089a289": {
+      "ProjectGuid": "9ee78dec-9cf5-47a6-b594-359e1089a289",
+      "DisplayName": "General_Relativity",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
