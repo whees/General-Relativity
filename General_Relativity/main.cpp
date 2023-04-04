@@ -8,9 +8,12 @@ using namespace std;
 
 float M = 1;
 
+
 float g11(float* abcd)
 {
-	return -1;
+	float r = abcd[0];
+	float f = 1 - M / r;
+	return -1/f;
 
 }
 
@@ -35,7 +38,9 @@ float g33(float* abcd)
 
 float g44(float* abcd)
 {
-	return 1;
+	float r = abcd[0];
+	float f = 1 - M / r;
+	return f;
 
 }
 
@@ -80,9 +85,9 @@ int main()
 	}
 
 	Metric g = Metric(uvs);
-	float abcd[4] = { 2,1,1,0 };
+	float abcd[4] = { 2,1,0,0 };
 
-	cout << g.christoff(0,1,1,abcd);
+	cout << g.christoff(0,0,0,abcd);
 
 
 }

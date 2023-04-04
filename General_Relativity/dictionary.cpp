@@ -12,7 +12,7 @@ float squared(float x)
 
 float derivitive(fourParamFunc func, int index, float* abcd)
 {
-	float dparam = 0.0001;
+	float dparam = 0.001;
 	float new_abcd[4] = { abcd[0], abcd[1], abcd[2], abcd[3] };
 	new_abcd[index] += dparam;
 	float dfunc = func(new_abcd) - func(abcd);

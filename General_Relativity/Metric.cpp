@@ -87,5 +87,6 @@ float Metric::christoff(int u, int v, int a, float* abcd)
 
 	ret *= 0.5;
 
+
 	return ret;
 }
